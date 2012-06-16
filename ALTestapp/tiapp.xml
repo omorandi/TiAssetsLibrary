@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ti:app xmlns:ti="http://ti.appcelerator.org">
+	<id>ti.assetslibrary.testapp</id>
+	<name>ALTestapp</name>
+	<version>1.0</version>
+	<sdk-version>2.0.1.GA2</sdk-version>
+	<publisher>not specified</publisher>
+	<url>not specified</url>
+	<description>not specified</description>
+	<copyright>not specified</copyright>
+	<icon>appicon.png</icon>
+	<persistent-wifi>false</persistent-wifi>
+	<prerendered-icon>false</prerendered-icon>
+	<statusbar-style>default</statusbar-style>
+	<statusbar-hidden>false</statusbar-hidden>
+	<fullscreen>false</fullscreen>
+	<navbar-hidden>false</navbar-hidden>
+	<analytics>true</analytics>
+	<guid>16bab5be-f60d-4302-bc3b-f605ca337d3e</guid>
+	<property name="ti.ui.defaultunit">system</property>
+	<iphone>
+		<orientations device="iphone">
+			<orientation>Ti.UI.PORTRAIT</orientation>
+		</orientations>
+		<orientations device="ipad">
+			<orientation>Ti.UI.PORTRAIT</orientation>
+			<orientation>Ti.UI.UPSIDE_PORTRAIT</orientation>
+			<orientation>Ti.UI.LANDSCAPE_LEFT</orientation>
+			<orientation>Ti.UI.LANDSCAPE_RIGHT</orientation>
+		</orientations>
+	</iphone>
+	<android xmlns:android="http://schemas.android.com/apk/res/android">
+	</android>
+	<mobileweb>
+		<precache>
+		</precache>
+		<splash>
+			<enabled>true</enabled>
+			<inline-css-images>true</inline-css-images>
+		</splash>
+		<theme>default</theme>
+	</mobileweb>
+	<modules>
+		<module platform="iphone" version="0.1">ti.assetslibrary</module>
+	</modules>
+</ti:app>
