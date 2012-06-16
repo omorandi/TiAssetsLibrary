@@ -6,10 +6,12 @@
 
 // open a single window
 var win = Ti.UI.createWindow({
-	backgroundColor:'white'
+	backgroundColor:'white',
+	title: 'Groups',
+	tabBarHidden: true
 });
 
-win.open();
+
 
 // TODO: write your module tests here
 var assetslibrary = require('ti.assetslibrary');
@@ -20,6 +22,53 @@ var table = Ti.UI.createTableView({});
 win.add(table);
 
 
+var tabGroup = Ti.UI.createTabGroup();
+var tab = Ti.UI.createTab({
+	window: win
+});
+
+tabGroup.addTab(tab);
+
+var createAssetsWin = function(group) {
+	
+	var assetsWin = Ti.UI.createWindow({
+		backgroundColor: 'white',
+		title: 'Assets'
+	});
+
+
+
+	var assetsTable = Ti.UI.createTableView();
+	assetsWin.add(assetsTable);
+
+	group.getAssets(function(e) {
+		Ti.API.info('got assets');
+		var assetsList = e.assets;
+		var rows = [];
+		for (var i = 0; i < assetsList.assetsCount; i++) {
+			assets = assetsList.getAssetAtIndex(i);
+			var row = Ti.UI.createTableViewRow({height: 44});
+			var img = Ti.UI.createImageView({
+				left: 5,
+				height: 40,
+				width: 40,
+				image: asset.thumbnail,
+				borderRadius: 5
+			});
+			var title = Ti.UI.createLabel({
+				left: 50,
+				text: asset.type
+			});
+			row.add(img);
+			row.add(title);
+			rows.push(row);
+		}
+		assetsTable.data = rows;
+
+	});
+	tab.open(assetsWin, {animated: true});
+
+};
 
 
 var successCb = function(e) {
@@ -44,6 +93,9 @@ var successCb = function(e) {
 		return row;
 	});
 	table.data = rows;
+	table.addEventListener('click', function(e) {
+		createAssetsWin(groups[e.index]);
+	});
 };
 
 var errorCb = function(e) {
@@ -52,3 +104,5 @@ var errorCb = function(e) {
 
 var groups = assetslibrary.getGroups([assetslibrary.AssetsGroupTypeAll], successCb, errorCb);
 
+
+tabGroup.open();

@@ -9,9 +9,9 @@
 #import "TiBlob.h"
 
 
-const NSString *kAssetsFilterAll = @"AssetsFilterAll";
-const NSString *kAssetsFilterPhotos = @"AssetsFilterPhotos";
-const NSString *kAssetsFilterVideos = @"AssetsFilterVideos";
+const NSString *kAssetsFilterAll;
+const NSString *kAssetsFilterPhotos;
+const NSString *kAssetsFilterVideos;
 
 
 @interface AssetsGroup : TiProxy {

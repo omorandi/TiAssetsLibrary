@@ -10,6 +10,11 @@
 #import "AssetsList.h"
 
 
+
+const NSString *kAssetsFilterAll = @"AssetsFilterAll";
+const NSString *kAssetsFilterPhotos = @"AssetsFilterPhotos";
+const NSString *kAssetsFilterVideos = @"AssetsFilterVideos";
+
 @implementation AssetsGroup
 
 -(id)initWithALAssetsGroup:(ALAssetsGroup*)group
@@ -105,12 +110,17 @@
     
     NSMutableArray *assets = [[NSMutableArray alloc] init];
     [assetsGroup enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
-        [assets addObject:result];
-        if ((*stop) == YES)
+        if (result) 
         {
-            NSDictionary *obj = [NSDictionary dictionaryWithObject:assets forKey:@"assets"];
+            [assets addObject:result];
+        }
+        else
+        {
+            AssetsList *assetsList = [[AssetsList alloc] initWithALAssetsArray:assets];
+            NSDictionary *obj = [NSDictionary dictionaryWithObject:assetsList forKey:@"assets"];
             [self _fireEventToListener:@"gotAssets" withObject:obj listener:callback thisObject:nil];
             [assets autorelease];
+            [assetsList autorelease];
         }
     }];
 }
