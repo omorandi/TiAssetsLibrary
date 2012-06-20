@@ -46,7 +46,7 @@ var createAssetsWin = function(group) {
 		var assetsList = e.assets;
 		var rows = [];
 		for (var i = 0; i < assetsList.assetsCount; i++) {
-			assets = assetsList.getAssetAtIndex(i);
+			var asset = assetsList.getAssetAtIndex(i);
 			var row = Ti.UI.createTableViewRow({height: 44});
 			var img = Ti.UI.createImageView({
 				left: 5,

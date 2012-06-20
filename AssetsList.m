@@ -17,6 +17,7 @@
     {
         assets = [alAssets retain];
     }
+    return self;
     
 }
 

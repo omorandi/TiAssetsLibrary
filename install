@@ -1,0 +1,11 @@
+#!/bin/bash
+if [ "$1" == "debug" ]
+	then
+		./build_debug.py
+	else
+		./build.py
+fi
+
+unzip -uo ti.assetslibrary-iphone-0.1.zip -d /Library/Application\ Support/Titanium/ 
+unzip -uo ti.assetslibrary-iphone-0.1.zip -d "`dirname $0`/ALTestapp"
+
