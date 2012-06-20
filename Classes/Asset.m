@@ -70,7 +70,16 @@
 
 -(NSArray*)representations
 {
-    return [asset valueForProperty:ALAssetPropertyRepresentations];
+    NSMutableArray *reps = [[NSMutableArray alloc] init];
+    NSArray *assetRepresentations = [asset valueForProperty:ALAssetPropertyRepresentations];
+    
+    for (NSString* r in assetRepresentations) {
+        ALAssetRepresentation *rep = [asset representationForUTI:r];
+        AssetRepresentation *repProxy = [[[AssetRepresentation alloc] initWithAssetRepresentation:rep] autorelease];
+        [reps addObject:repProxy];
+    }
+    
+    return [reps autorelease];
 }
 
 -(NSDictionary*)URLs

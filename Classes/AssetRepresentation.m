@@ -15,7 +15,7 @@
     self = [super init];
     if (self)
     {
-        assetRepresentation = [assetRepresentation retain];
+        assetRepresentation = [assetRep retain];
     }
     return self;
 }
