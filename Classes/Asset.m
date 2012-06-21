@@ -89,6 +89,9 @@
 
 -(Asset*)originalAsset
 {
+    if (asset.originalAsset == nil) {
+        return nil;
+    }
     return [[[Asset alloc] initWithAsset:asset.originalAsset] autorelease];
 }
 
