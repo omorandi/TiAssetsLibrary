@@ -27,15 +27,8 @@ exports.getFirstAsset = function() {
 			//let's consider the first asset
 			var asset = assetsList.getAssetAtIndex(0);
 
-			//extract the asset representations:
-			var representations = asset.representations;
-			if (!representations || representations.length === 0) {
-				Ti.API.warn('SINGLE_ASSET: asset with no representations');
-				return;
-			}
-
-			//let's consider the first representation
-			var rep = representations[0];
+			//let's consider only the default representation
+			var rep = asset.defaultRepresentation;
 
 			var url = rep.url;
 
