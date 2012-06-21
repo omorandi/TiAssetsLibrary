@@ -2,9 +2,9 @@
 
 ## Description
 
-This iOS module extends the Ti SDK, enabling access to the functionalities provided by iOS through the [AssetsLibrary framework](http://developer.apple.com/library/ios/#documentation/AssetsLibrary/Reference/AssetsLibraryFramework/_index.html).
+This iOS module extends the Ti SDK, enabling access to the functionalities provided by the iOS  [AssetsLibrary framework](http://developer.apple.com/library/ios/#documentation/AssetsLibrary/Reference/AssetsLibraryFramework/_index.html).
 
-The module provides an almost 1:1 mapping on the features exposed by said framework. 
+The module provides an almost 1:1 mapping on the features exposed by said framework (read-only). 
 
 ## Building and installing the TiAssetsLibrary Module ##
 
