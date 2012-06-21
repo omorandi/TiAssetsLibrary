@@ -10,6 +10,7 @@
 #import "TiUtils.h"
 #import "KrollCallback.h"
 #import "AssetsGroup.h"
+#import "Asset.h"
 
 
 @implementation TiAssetslibraryModule
@@ -103,11 +104,11 @@
 }
 
 
--(int)groupTypesFlags:(NSArray*)types
+-(NSUInteger)groupTypesFlags:(NSArray*)types
 {
-    int flags = 0;
+    NSUInteger flags = 0;
     for (NSNumber *groupType in types) {
-        flags |= [groupType intValue];
+        flags |= [groupType unsignedIntegerValue];
     }
     
     return flags;
@@ -181,6 +182,40 @@ MAKE_SYSTEM_STR(AssetsFilterVideos, kAssetsFilterVideos);
     
     
     
+}
+
+
+
+-(void)getAsset:(id)args
+{
+    ENSURE_ARG_COUNT(args, 3);
+    
+    id url = [args objectAtIndex:0];
+    ENSURE_TYPE(url, NSString);
+    
+    id successCb = [args objectAtIndex:1];
+    ENSURE_TYPE(successCb, KrollCallback);
+    
+    id errorCb = [args objectAtIndex:2];
+    ENSURE_TYPE(errorCb, KrollCallback);
+    
+    
+    [self initAssetsLib];
+    
+    
+    NSURL *assetUrl = [NSURL URLWithString:url];
+    [self.assetsLib assetForURL:assetUrl resultBlock:^(ALAsset *asset) {
+        
+        Asset *assetProxy = [[[Asset alloc] initWithAsset:asset] autorelease];
+        
+        NSDictionary *obj = [NSDictionary dictionaryWithObject:assetProxy forKey:@"asset"];
+        [self _fireEventToListener:@"gotAsset" withObject:obj listener:successCb thisObject:nil];
+        
+    } failureBlock:^(NSError *error) {
+        
+        NSDictionary *obj = [NSDictionary dictionaryWithObject:error.description forKey:@"error"];
+        [self _fireEventToListener:@"error" withObject:obj listener:errorCb thisObject:nil];
+    }];  
 }
 
 
