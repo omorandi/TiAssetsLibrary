@@ -2,12 +2,12 @@
 # this is your module manifest and used by Titanium
 # during compilation, packaging, distribution, etc.
 #
-version: 0.1
+version: 0.2
 apiversion: 2
-description: My module
-author: Your Name
+description: iOS AssetsLibrary Module
+author: Olivier Morandi
 license: Specify your license
-copyright: Copyright (c) 2012 by Your Company
+copyright: Copyright (c) 2012 by Olivier Morandi
 
 
 # these should not be edited
@@ -15,4 +15,4 @@ name: assetslibrary
 moduleid: ti.assetslibrary
 guid: dad3b8e4-e244-4af3-a889-d8bb65a73274
 platform: iphone
-minsdk: 2.0.1.GA2
+minsdk: 2.1.3.GA

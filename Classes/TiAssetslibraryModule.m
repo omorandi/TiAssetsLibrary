@@ -37,6 +37,10 @@
     if (!self.assetsLib) 
     {
         self.assetsLib = [[ALAssetsLibrary alloc] init];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(libraryChanged:)
+                                                     name:ALAssetsLibraryChangedNotification object:nil];
     }
     
 }
@@ -62,6 +66,7 @@
 	
 	// you *must* call the superclass
 	[super shutdown:sender];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark Cleanup 
@@ -115,6 +120,28 @@
 }
 
 
+-(void)libraryChanged:(NSNotification*)note
+{
+    if ([self _hasListeners:@"libraryChanged"]) {
+        NSMutableDictionary *dict = nil;
+        if (note != nil && note.userInfo != nil) {
+            dict = [NSMutableDictionary dictionary];
+            for (NSString *key in note.userInfo) {
+                NSSet *val = [note.userInfo objectForKey:key];
+                
+                NSMutableArray *urlSet = [NSMutableArray array];
+                for (NSURL *url in val) {
+                    [urlSet addObject:url];
+                }
+                
+                [dict setObject:urlSet forKey: key];
+            }
+        }
+        [self fireEvent:@"libraryChanged" withObject:dict];
+    }
+}
+
+
 #pragma Public APIs
 
 MAKE_SYSTEM_PROP(AssetsGroupTypeLibrary,  ALAssetsGroupLibrary);
@@ -143,6 +170,39 @@ MAKE_SYSTEM_STR(AssetsFilterAll, kAssetsFilterAll);
 MAKE_SYSTEM_STR(AssetsFilterPhotos, kAssetsFilterPhotos);
 MAKE_SYSTEM_STR(AssetsFilterVideos, kAssetsFilterVideos);
 
+
+MAKE_SYSTEM_PROP(AuthorizationStatusNotDetermined, ALAuthorizationStatusNotDetermined);
+MAKE_SYSTEM_PROP(AuthorizationStatusRestricted, ALAuthorizationStatusRestricted);
+MAKE_SYSTEM_PROP(AuthorizationStatusDenied, ALAuthorizationStatusDenied);
+MAKE_SYSTEM_PROP(AuthorizationStatusAuthorized, ALAuthorizationStatusAuthorized);
+
+
+MAKE_SYSTEM_STR(AssetsUpdateUpdatedAssets, ALAssetLibraryUpdatedAssetsKey);
+MAKE_SYSTEM_STR(AssetsUpdateInsertedAssetGroups, ALAssetLibraryInsertedAssetGroupsKey);
+MAKE_SYSTEM_STR(AssetsUpdateUpdatedAssetGroups, ALAssetLibraryUpdatedAssetGroupsKey);
+MAKE_SYSTEM_STR(AssetsUpdateDeletedAssetGroups, ALAssetLibraryDeletedAssetGroupsKey);
+
+
+
+-(id)authorizationStatus
+{
+    if ([ALAssetsLibrary respondsToSelector:@selector(authorizationStatus)])
+    {
+        return [NSNumber numberWithInt:[ALAssetsLibrary authorizationStatus]];
+    }
+    
+    //on iOS 6.X we return nil as the method is not supported
+    return nil;
+}
+
+
+-(void)disableSharedPhotoStreamsSupport:(id)args
+{
+    if ([ALAssetsLibrary respondsToSelector:@selector(disableSharedPhotoStreamsSupport)])
+    {
+        [ALAssetsLibrary disableSharedPhotoStreamsSupport];
+    }
+}
 
 
 -(void)getGroups:(id)args
@@ -179,9 +239,6 @@ MAKE_SYSTEM_STR(AssetsFilterVideos, kAssetsFilterVideos);
         NSDictionary *obj = [NSDictionary dictionaryWithObject:error.description forKey:@"error"];
         [self _fireEventToListener:@"error" withObject:obj listener:errorCb thisObject:nil];
     }];
-    
-    
-    
 }
 
 
@@ -205,7 +262,11 @@ MAKE_SYSTEM_STR(AssetsFilterVideos, kAssetsFilterVideos);
     
     NSURL *assetUrl = [NSURL URLWithString:url];
     [self.assetsLib assetForURL:assetUrl resultBlock:^(ALAsset *asset) {
-        
+        if (asset == nil) {
+            NSDictionary *obj = [NSDictionary dictionaryWithObject:@"requested asset cannot be found" forKey:@"error"];
+            [self _fireEventToListener:@"error" withObject:obj listener:errorCb thisObject:nil];
+            return;
+        }
         Asset *assetProxy = [[[Asset alloc] initWithAsset:asset] autorelease];
         
         NSDictionary *obj = [NSDictionary dictionaryWithObject:assetProxy forKey:@"asset"];

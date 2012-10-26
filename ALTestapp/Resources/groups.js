@@ -133,7 +133,8 @@ exports.createGroupsWindow = function() {
 					left: 5,
 					height: 40,
 					width: 40,
-					image: asset.thumbnail
+					image: asset.thumbnail,
+					hires: true
 				});
 				var title = Ti.UI.createLabel({
 					left: 50,
@@ -165,7 +166,8 @@ exports.createGroupsWindow = function() {
 				height: 40,
 				width: 40,
 				image: group.posterImage,
-				borderRadius: 5
+				borderRadius: 5,
+				hires: true
 			});
 			var title = Ti.UI.createLabel({
 				left: 50,

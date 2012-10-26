@@ -3,7 +3,7 @@
 	<id>ti.assetslibrary.testapp</id>
 	<name>ALTestapp</name>
 	<version>1.0</version>
-	<sdk-version>2.0.1.GA2</sdk-version>
+	<sdk-version>2.1.0.GA-fastdev</sdk-version>
 	<publisher>not specified</publisher>
 	<url>not specified</url>
 	<description>not specified</description>
@@ -41,6 +41,6 @@
 		<theme>default</theme>
 	</mobileweb>
 	<modules>
-		<module platform="iphone" version="0.1">ti.assetslibrary</module>
+		<module platform="iphone" version="0.2">ti.assetslibrary</module>
 	</modules>
 </ti:app>

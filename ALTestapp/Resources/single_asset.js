@@ -8,7 +8,7 @@ exports.getFirstAsset = function() {
 			Ti.API.warn('SINGLE_ASSET: Got no groups');
 			return;
 		}
-		
+
 		Ti.API.info('SINGLE_ASSET: Got ' + groups.length + ' groups');
 
 		//let's consider the first group
