@@ -3,7 +3,7 @@
 	<id>ti.assetslibrary.testapp</id>
 	<name>ALTestapp</name>
 	<version>1.0</version>
-	<sdk-version>2.1.0.GA-fastdev</sdk-version>
+	<sdk-version>2.1.3.GA</sdk-version>
 	<publisher>not specified</publisher>
 	<url>not specified</url>
 	<description>not specified</description>
