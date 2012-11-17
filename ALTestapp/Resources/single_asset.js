@@ -26,6 +26,9 @@ exports.getFirstAsset = function() {
 			Ti.API.info('SINGLE_ASSET: Got ' + assetsList.assetsCount + ' assets');
 			//let's consider the first asset
 			var asset = assetsList.getAssetAtIndex(0);
+			var location = asset.location;
+
+			Ti.API.info('location: ' + JSON.stringify(location));
 
 			//let's consider only the default representation
 			var rep = asset.defaultRepresentation;

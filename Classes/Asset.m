@@ -45,7 +45,7 @@
     NSDictionary *loc = [NSDictionary dictionaryWithObjectsAndKeys:
                          [NSNumber numberWithDouble:assetLocation.coordinate.latitude], @"latitude", 
                          [NSNumber numberWithDouble:assetLocation.coordinate.longitude], @"longitude", 
-                         [NSNumber numberWithDouble:assetLocation.altitude], nil];
+                         [NSNumber numberWithDouble:assetLocation.altitude], @"altitude", nil];
     return loc;
 }
 
