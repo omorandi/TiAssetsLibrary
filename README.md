@@ -206,7 +206,7 @@ The **AssetRepresentation** object is an almost 1:1 mapping on the underlying [A
 
 ## License
 
-    Copyright (c) 2012 Olivier Morandi
+    Copyright (c) 2013 Olivier Morandi
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
